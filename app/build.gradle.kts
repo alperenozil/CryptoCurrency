@@ -72,6 +72,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation ("androidx.paging:paging-runtime:3.3.1")
+    implementation ("androidx.paging:paging-compose:3.3.1")
     kapt ("com.google.dagger:hilt-compiler:2.46.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

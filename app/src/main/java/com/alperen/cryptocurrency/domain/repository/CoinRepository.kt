@@ -8,5 +8,4 @@ interface CoinRepository {
     suspend fun getCoins(): List<CoinDto>
 
     suspend fun getCoinDetail(coinId: String): CoinDetailsDto
-
 }

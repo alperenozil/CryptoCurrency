@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.alperen.cryptocurrency.ui.Screens
 import com.alperen.cryptocurrency.ui.coin_list.CoinListViewModel
 
@@ -20,7 +21,9 @@ fun CoinListScreen(
     coinListViewModel: CoinListViewModel = hiltViewModel()
 ) {
     val state = coinListViewModel.coinListState.collectAsState()
-    if(state.value.isLoading) Text("coin list loading...")
+    val stateTodo = coinListViewModel.toDoListState.collectAsLazyPagingItems()
+    val todopager = coinListViewModel.todosPager.collectAsLazyPagingItems()
+    /*if(state.value.isLoading) Text("coin list loading...")
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.fillMaxSize()) {
             state.value.coins?.let { list ->
@@ -29,6 +32,25 @@ fun CoinListScreen(
                         coin = coin,
                         onItemClick = { navController.navigate(Screens.CoinDetailScreen.route + "/${coin.id}") }
                     )
+                }
+            }
+        }
+        if(state.value.error?.isNotBlank() == true){
+            Text("error")
+        }
+    }*/
+
+    //if(stateTodo.value.isLoading) Text("todo list loading...")
+    Column(Modifier.fillMaxSize()) {
+        LazyColumn(Modifier.fillMaxSize()) {
+            todopager.let { list ->
+                items(list.itemCount) { todo ->
+                    list[todo]?.let {
+                        ToDoListItem(
+                            todo = it,
+                            onItemClick = { navController.navigate(Screens.CoinDetailScreen.route + "/todo") }
+                        )
+                    }
                 }
             }
         }
