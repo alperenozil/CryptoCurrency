@@ -13,15 +13,5 @@ import javax.inject.Inject
 class GetCoinsUseCase @Inject constructor(
     private val repo: CoinRepository
 ) {
-    suspend operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
-        try {
-            emit(Resource.Loading())
-            val result = repo.getCoins().map { it.toModel() }
-            emit(Resource.Success(result))
-        } catch (e: HttpException) { // if response code doesnt start with 2
-            emit(Resource.Error(e.localizedMessage ?: "unexpected error"))
-        } catch (e: IOException) { // no internet connection
-            emit(Resource.Error(e.localizedMessage ?: "network error"))
-        }
-    }
+    suspend operator fun invoke(): Flow<Resource<List<Coin>>> = repo.getCoins()
 }
