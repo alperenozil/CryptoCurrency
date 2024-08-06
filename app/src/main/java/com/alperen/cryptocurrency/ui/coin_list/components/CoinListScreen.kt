@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.alperen.cryptocurrency.ui.Screens
 import com.alperen.cryptocurrency.ui.coin_list.CoinListViewModel
@@ -50,6 +51,24 @@ fun CoinListScreen(
                             todo = it,
                             onItemClick = { navController.navigate(Screens.CoinDetailScreen.route + "/todo") }
                         )
+                    }
+                }
+                when(list.loadState.append){
+                    is LoadState.Loading -> {
+                        item{
+                            Text("LOADING...")
+                        }
+                    }
+
+                    is LoadState.Error -> {
+                        item{
+                            Text("ERROR")
+                        }
+                    }
+                    is LoadState.NotLoading -> {
+                        item{
+                            Text("NOT LOADING")
+                        }
                     }
                 }
             }
