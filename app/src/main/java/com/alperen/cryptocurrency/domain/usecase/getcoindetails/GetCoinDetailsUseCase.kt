@@ -15,5 +15,15 @@ import javax.inject.Inject
 class GetCoinDetailsUseCase @Inject constructor(
     private val repo: CoinRepository
 ) {
-    suspend operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = repo.getCoinDetail(coinId)
+    suspend operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
+        try {
+            emit(Resource.Loading())
+            val result = repo.getCoinDetail(coinId).toModel()
+            emit(Resource.Success(result))
+        } catch (e: HttpException) { // if response code doesnt start with 2
+            emit(Resource.Error(e.localizedMessage ?: "unexpected error"))
+        } catch (e: IOException) { // no internet connection
+            emit(Resource.Error(e.localizedMessage ?: "network error"))
+        }
+    }
 }

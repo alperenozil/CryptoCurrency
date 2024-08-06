@@ -20,11 +20,6 @@ fun CoinListScreen(
     coinListViewModel: CoinListViewModel = hiltViewModel()
 ) {
     val state = coinListViewModel.coinListState.collectAsState()
-<<<<<<< Updated upstream
-=======
-    val stateTodo = coinListViewModel.toDoListState.collectAsLazyPagingItems()
-    val todopager = coinListViewModel.todosPager.collectAsLazyPagingItems()
->>>>>>> Stashed changes
     if(state.value.isLoading) Text("coin list loading...")
     Column(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.fillMaxSize()) {
@@ -41,30 +36,6 @@ fun CoinListScreen(
             Text("error")
         }
     }
-<<<<<<< Updated upstream
-=======
-
-    //if(stateTodo.value.isLoading) Text("todo list loading...")
-
-    //TODO LIST WITH PAGING
-    /*Column(Modifier.fillMaxSize()) {
-        LazyColumn(Modifier.fillMaxSize()) {
-            todopager.let { list ->
-                items(list.itemCount) { todo ->
-                    list[todo]?.let {
-                        ToDoListItem(
-                            todo = it,
-                            onItemClick = { navController.navigate(Screens.CoinDetailScreen.route + "/todo") }
-                        )
-                    }
-                }
-            }
-        }
-        if(state.value.error?.isNotBlank() == true){
-            Text("error")
-        }
-    }*/
->>>>>>> Stashed changes
 }
 
 
