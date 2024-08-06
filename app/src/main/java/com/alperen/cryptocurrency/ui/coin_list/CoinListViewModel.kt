@@ -24,6 +24,10 @@ class CoinListViewModel @Inject constructor(
 
     init {
         getCoins()
+<<<<<<< Updated upstream
+=======
+        //getTodos()
+>>>>>>> Stashed changes
     }
 
     private fun getCoins() {
